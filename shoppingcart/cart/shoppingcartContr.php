@@ -13,7 +13,6 @@ class shoppingcartContr {
         $row = $model->getArtistsbyID($id);
 
         $ID = $id;
-        // $idItem = uniqid();
 
         foreach((array) $row as $r){
             
@@ -24,6 +23,16 @@ class shoppingcartContr {
         return $ticket;
     }
 
+    public function getFoodTickets($id){
+        //FOOT TICKETS GO HERE
+    }
+    
+    public function getHistoryTicket($id){
+        //HISTORY TICKETS GO HERE
+    }
+
+
+
     public function createShoppingCart($ticket){
         if(isset($_SESSION['shopping_cart'])){
             $count = count($_SESSION['shopping_cart']);
@@ -33,6 +42,8 @@ class shoppingcartContr {
             $_SESSION['shopping_cart'][0] = $ticket;
         }
     }
+
+
     public function displayShoppingCart(){
         if(!empty($_SESSION['shopping_cart'])){
             $total = 0;
@@ -81,9 +92,11 @@ class shoppingcartContr {
         }
         
     }
+
+
+
+    
     public function RemoveFromCart(){ //needs to be fixed
-        // echo "hello";
-        // die();
 
         if(isset($_POST['action']) && $_POST['action']=="delete"){
                 foreach($_SESSION['shopping_cart'] as $keys => $value)

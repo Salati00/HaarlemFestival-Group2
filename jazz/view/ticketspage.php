@@ -3,38 +3,6 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    // session_start();
-
-    // if(isset($POST['add'])){
-    //     if(isset($_SESSION['cartpage'])){
-    //         $item_array_id = array_column($_SESSION['cartpage'],"ticketID");
-    //         if(!in_array($_GET['id'],$item_array_id)){
-    //             $count = count($_SESSION['cartpage']);
-    //             $item_array = array(
-    //                 'ticketID' => $_GET['id'],
-    //                 'item_name' => $_POST['artist_name'],
-    //                 'item_price' => $_POST['price'],
-    //                 'item_quantity' =>$_POST['quantity'],
-    //             ); 
-    //             $_SESSION['cartpage'][$count] = $item_array;
-    //             echo '<script>window.location="../view/cartpage.php"</script>';                   
-    //         }
-    //         else{
-    //             echo '<script>alert("Product has already been added" )</script>';
-    //             echo '<script>window.location="../view/cartpage.php"</script>';
-    //         }
-            
-    //     }
-    //     else{
-    //         $item_array = array(
-    //             'ticketID' => $_GET['id'],
-    //             'item_name' => $_POST['artist_name'],
-    //             'product_price' => $_POST['price'],
-    //             'item_quantity' => $_POST['quantity'],
-    //         );
-    //         $_SESSION['cartpage'][0] = $item_array;
-    //     }
-    // }
 
     $jContr = new jazz_controller();
 ?>
@@ -52,8 +20,6 @@
     </header>
     <body>
         
-        
-    
         <section class= "tickets-overallwrapper"> 
             <section class= "ticketpage-header">
                 <h1>Tickets</h1>
@@ -61,8 +27,6 @@
             <?php
                 
                 $getJTickets = $jContr->getAllJazzTickets();
-                
-
                 
                 foreach((array)$getJTickets as $row){     
             ?>
@@ -116,7 +80,8 @@
                                     
                                     <section class="tickets-buttons">
 
-                                            <input class="button1" name = "add" type="submit" value ="Add to cart" onclick="location.href='../view/cartpage.php?id=<?php echo $row['ID']; ?>'">
+                                            <input class="button1" name = "add" type="submit" value ="Add to cart" 
+                                                    onclick="location.href='../view/cartpage.php?id=<?php echo $row['ID']; ?>'">
                                             <label>Quantity&colon;</label>
                                             <input class="inputfield" type="text" name="quantity" value=1 >
                                             
@@ -136,13 +101,7 @@
                                             
                                         </section>
                                     </section>
-                                </section>
-                                <!-- <?php
-                                    // if(isset($addCart)){
-                                    //     echo $addCart;
-                                    // }
-                                ?> -->
-                                
+                                </section>                                
                             </section>
                         </section>
                     </li>

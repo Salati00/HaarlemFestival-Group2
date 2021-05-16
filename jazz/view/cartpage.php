@@ -54,19 +54,6 @@
                 ?>
 
                 <?php
-                        // if(isset($_POST['action']) && $_POST['action']=="delete"){
-                        //     foreach($_SESSION['shopping_cart'] as $keys => $value)
-                        //         {
-                        //             if($_POST['idItem'] == $value["idItem"])
-                        //             {
-                        //                 unset($_SESSION['shopping_cart'][$keys]); //$keys
-                                        
-                                                                   
-                        //                 echo "item has been deleted";  //testing
-                        //             }
-                        //         }      
-                         
-                        // header('location: ../view/cartpage.php');
                      
                 if(isset($_POST['action' == 'submit'])){
                     $shoppingContr->removeFromCart();
