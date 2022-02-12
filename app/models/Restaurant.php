@@ -7,8 +7,9 @@ class Restaurant{
     public function getAllRestaurant(){
         $this->db->query('SELECT * FROM restaurant');
         $restaurant = $this->db->resultSet();
+        //var_dump($restaurant);
         foreach ($restaurant as &$row) {
-            $row['type']= $this->getAllRestaurantType($row['restaurantId']);
+            $row->type = $this->getAllRestaurantType($row->restaurantId);
         }
         return $restaurant;
     }

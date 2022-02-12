@@ -1,36 +1,39 @@
 <?php
-    class Database {
-        private $dbHost = DB_HOST;
-        private $dbUser = DB_USER;
-        private $dbPass = DB_PASS;
-        private $dbName = DB_NAME;
+class Database{
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASS;
+    private $dbname = DB_NAME;
 
-        private $statement;
-        private $dbHandler;
-        private $error;
+    private $dbh;
+    private $stmt;
+    private $error;
 
-        public function __construct() {
-            $conn = 'mysql:host=' . $this->dbHost . ';dbname=' . $this->dbName;
-            $options = array(
-                PDO::ATTR_PERSISTENT => true,
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-            );
-            try {
-                $this->dbHandler = new PDO($conn, $this->dbUser, $this->dbPass, $options);
-            } catch (PDOException $e) {
-                $this->error = $e->getMessage();
-                echo $this->error;
-            }
+    public function __construct(){
+        //Set DSN
+        $dsn = 'mysql:host='.$this->host.';dbname='.$this->dbname;
+        $options = array(
+            PDO::ATTR_PERSISTENT=>true,
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
+        );
+
+        //Create PDO instance
+        try{
+            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        }catch(PDOException $e){
+            $this->error = $e->getMessage();
+            echo $this->error;
         }
+    }
 
-        //Allows us to write queries
-        public function query($sql) {
-            $this->statement = $this->dbHandler->prepare($sql);
-        }
+    // Prepare statement with query
+    public function query($sql){
+        $this->stmt = $this->dbh->prepare($sql);
+    }
 
-        //Bind values
-        public function bind($parameter, $value, $type = null) {
-            switch (is_null($type)) {
+    public function bind($param, $value, $type = null){
+        if(is_null($type)){
+            switch(true){
                 case is_int($value):
                     $type = PDO::PARAM_INT;
                     break;
@@ -43,28 +46,32 @@
                 default:
                     $type = PDO::PARAM_STR;
             }
-            $this->statement->bindValue($parameter, $value, $type);
-        }
 
-        //Execute the prepared statement
-        public function execute() {
-            return $this->statement->execute();
         }
-
-        //Return an array
-        public function resultSet() {
-            $this->execute();
-            return $this->statement->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        //Return a specific row as an object
-        public function single() {
-            $this->execute();
-            return $this->statement->fetch(PDO::FETCH_OBJ);
-        }
-
-        //Get's the row count
-        public function rowCount() {
-            return $this->statement->rowCount();
-        }
+        $this->stmt->bindValue($param, $value, $type);
     }
+
+    //Execute the prepared statement
+    public function execute(){
+        return $this->stmt->execute();
+    }
+
+    //Get result set as array of object
+    public function resultSet(){
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    //Get single record as object
+    public function single(){
+        $this->execute();
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
+
+    }
+
+    //Get row count
+    public function rowCount(){
+        return $this->stmt->rowCount();
+    }
+
+}

@@ -39,7 +39,7 @@
 
             <button id="submit" type="submit" value="submit">Submit</button>
 
-            <p class="options">Not registered yet? <a href="<?php echo URLROOT; ?>/users/register">Create an account!</a></p>
+            <p class="options">Already registered? <a href="<?php echo URLROOT; ?>/users/login">Log In!</a></p>
         </form>
     </div>
 </div>

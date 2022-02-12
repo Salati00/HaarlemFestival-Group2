@@ -53,4 +53,33 @@ class User {
             return false;
         }
     }
+
+    //Adds log to database table
+    public function dbLog($username, $type_id, $log_detail = "") {
+
+        $user_id = $this->findUserIdByUsername($username);
+        $this->db->query('INSERT INTO logs (user_id, type_id, time, event_log) VALUES(:user_id, :type, now(), :detail)');
+
+        //Bind values
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':type', $type_id);
+        $this->db->bind(':detail', $log_detail);
+
+        //Execute function
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getLogs($user_id, $privilege_level){
+        $this->db->query('SELECT l.log_id, u.username, e.name, l.time, l.event_log FROM logs l inner join event_types e on l.type_id = e.type_id inner JOIN users u on l.user_id = u.user_id inner join privileges p on u.privilege_level = p.privilege_level WHERE l.user_id = :user_id OR l.user_id in (SELECT user_id FROM users where privilege_level < :privilege)');
+
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':privilege', $privilege_level);
+
+        $result = $this->db->resultSet();
+        return $result;
+    }
 }

@@ -5,6 +5,8 @@ class Pages extends Controller {
         //$this->userModel = $this->model('User');
         $this->restaurantModel =$this->model('Restaurant');
         $this->ticketsModel=$this->model('RestaurantTickets');
+        $this->ticketModel = $this->model('Ticket');
+        $this->userModel = $this->model('User');
 
     }
 
@@ -12,13 +14,43 @@ class Pages extends Controller {
         $restaurant = $this->restaurantModel->getAllRestaurant();
         $restaurant_type = $this->restaurantModel->getAllType();
         $data = array($restaurant,$restaurant_type);
-        $this->view('food_home', $data);
+        $this->view('pages/food_home', $data);
+        
+        /*$data = [
+            'title' => 'Home page'
+        ];
 
+        $this->view('index', $data);*/
     }
+
+    public function about() {
+        $data = [
+            'title' => 'About Me'
+        ];
+
+    $this->view('pages/about', $data);
+    }
+
+    public function food_home(){
+        $restaurant = $this->restaurantModel->getAllRestaurant();
+        $restaurant_type = $this->restaurantModel->getAllType();
+        $data = array($restaurant,$restaurant_type);
+        $this->view('pages/food_home', $data);
+    }
+    
+    public function cms() {
+        $data = [
+            'title' => 'CMS',
+            'events' => ($this->ticketModel->getJazzByDay("2021-07-29"/*$_POST['date']*/))
+        ];
+
+    $this->view('pages/cms', $data);
+    }
+
     public function food_tickets($restaurant_Id){
         $ticket =$this->ticketsModel->getRestaurantTickets($restaurant_Id);
         $data = array($ticket);
-        $this->view('food_tickets',$data);
+        $this->view('pages/food_tickets',$data);
 
     }
    public function orders()

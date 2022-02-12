@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Food Event Home</title>
+    <title><?php
+    if(isset($data['title']))
+    {
+        echo $data['title'];
+    }
+    else{
+        echo SITENAME;
+    }
+    ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= URLROOT .'/public/css/bootstrap.min.css'?>">
+    <link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/CMS.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="<?= URLROOT .'/public/jquery/jquery.min.js'?>"></script>
     <script src="<?= URLROOT .'/public/js/bootstrap.js'?>"></script>
     <script src="<?= URLROOT .'/public/js/bootstrap-multiselect.min.js'?>"></script>
@@ -21,16 +32,16 @@
         <section class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="<?php echo URLROOT; ?>/Home">Home</a>
+                    <a class="nav-link active" href="<?php echo URLROOT; ?>/pages/Home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/Jazz">Jazz</a>
+                    <a class="nav-link" href="<?php echo URLROOT; ?>/pages/Jazz">Jazz</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/History">History</a>
+                    <a class="nav-link" href="<?php echo URLROOT; ?>/pages/History">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/food_home">Food</a>
+                    <a class="nav-link" href="<?php echo URLROOT; ?>/pages/food_home">Food</a>
                 </li>
             </ul>
             <form class="d-flex">

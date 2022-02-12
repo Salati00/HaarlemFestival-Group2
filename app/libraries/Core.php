@@ -40,8 +40,6 @@
         }
       }
 
-
-
       // Get params
       $this->params = $url ? array_values($url) : [];
 
@@ -59,5 +57,3 @@
       }
     }
   }
-
-
